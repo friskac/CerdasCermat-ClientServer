@@ -25,7 +25,7 @@ def receving(name, sock):
 #host = '192.168.26.86'
 host = '127.0.0.1'
 port = 0 #pick any free port currently on the computer
-server = (host, 65531)
+server = (host, 65532)
 
 socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 socket.bind((host,port))
