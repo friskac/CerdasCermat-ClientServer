@@ -14,7 +14,7 @@ def receving(name, sock):
             print(str(data))
             if '?' in str(data):
                 tEv.set()
-            if "The game is finished" in str(data):  # message from server to stop
+            if "Cerdas Cermat telah selesai!" in str(data):  # message from server to stop
                 shutdown = True
                 tShutdown.set()
         except:
@@ -36,7 +36,7 @@ rT = threading.Thread(target=receving, args=("RecvThread", s))
 rT.start()
 
 # Join the game
-alias = input("Name: ")
+alias = input("Nama Anda: ")
 s.sendto(alias.encode(), server)
 
 time = 15
@@ -47,7 +47,7 @@ while not tShutdown.is_set():
     if tEv.wait(1.0):
         first = False
         tEv.clear()
-        message = input(alias + ", what is your answer ?  -> ")
+        message = input(alias + ", apa jawabannya ?  -> ")
         if message != '':
             s.sendto(message.encode(), server)
     time -= 1

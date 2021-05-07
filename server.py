@@ -18,11 +18,6 @@ answer2 = [["Paris","London","Berlin","Madrid"],
         ["Portuguese","Spanish","French","English"]]
 question_done=[0]*(len(question2))
 
-
-#SCORE, stored as a list score[0]--> score of the player 1
-score=[0]
-
-
 #SHOW THE POSSIBLE ANSWERS
 def displayA(question,answer,i):
     a = answer[i]
@@ -43,35 +38,36 @@ def chooseQuestion(question,answer):
         question_done[k]=1
     print(question[k])
     print(answer[k])
-    #displayA(question,answer,k)
     return k
 
 
 #CHECK IF GOOD ANSWER OR NOT
-def checkAnswer(answer,agiven,qnb):
-    #print("CHECK")
+def checkAnswer(answer,agiven,qnb,player,score):
+    cli_ans = agiven.decode()
     test = False
-    if(answer[qnb][0] in agiven):
+    if(answer[qnb][0] == cli_ans):
+        # print(score[player])
         test = True
-        score[0]=score[0]+1
+        score[player]=score[player]+1
+    print("score player", i, ": ", score[player])
     #print("ANSWER")
-    return test
+    return score
 
 
 
 #END OF GAME, DISPLAY OF SCORES
 def final_score(score):
-    print("The scores are {}".format(score))
+    print("Skornya adalah {}".format(score))
 
     maxi = max(score)
     if(score.count(maxi)==1):
-        print("The winner is Player {}".format(score.index(max(score))+1))
+        print("Pemenangnya adalah player {}".format(score.index(max(score))+1))
     else :
         winners = []
         for i in range(len(score)):
             if(score[i]==maxi):
                 winners.append(i+1)
-        print("The winners are players {}".format(winners))
+        print("Pemenangnya adalah player {}".format(winners))
 
 host = '127.0.0.1'
 
@@ -102,16 +98,17 @@ while ((secs > 0) and (len(players) < max_players)):
         if addr not in players:
             players.append(addr)
             print("listed players {}".format(players))
-            pesan = "Wait for game to start... "
+            pesan = "Menunggu Cerdas Cermat dimulai.. "
             s.sendto(pesan.encode(),players[len(players)-1])
         print(time.ctime(time.time()) +  ":" + str(data))
     secs = secs - 1
 
 #START GAME
-print("Game starting")
+print("Cerdas Cermat dimulai!")
+score = [0] * len(players)
 for i in range(len(players)):
     try:
-        pesan = "Game starting"
+        pesan = "Cerdas Cermat dimulai!"
         s.sendto(pesan.encode(), players[i])
     except:
         pass
@@ -134,13 +131,13 @@ for k in range(nb):
                 agiven, addr = s.recvfrom(1024)
                 print("GOT ANSWER")
             print("agiven is : {}".format(agiven))
-            checkAnswer(answer2,agiven.decode(),nbq)
+            score = checkAnswer(answer2,agiven, nbq, i, score)
         except:
             pass
 
 for i in range(len(players)):
     try:
-        pesan = "The game is finished"
+        pesan = "Cerdas Cermat telah selesai!"
         s.sendto(pesan.encode(), players[i])
     except:
         pass
