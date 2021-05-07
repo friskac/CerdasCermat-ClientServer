@@ -64,8 +64,8 @@ def final_score(score):
     global res
     maxi = max(score)
     if(score.count(maxi)==1):
-        print("Pemenangnya adalah player {}".format(score.index(max(score))+1))
-        result = "Pemenangnya adalah player {}".format(score.index(max(score))+1)
+        print(" Pemenangnya adalah player {}".format(score.index(max(score))+1))
+        result = " Pemenangnya adalah player {}".format(score.index(max(score))+1)
         
         res = "" + result
     else :
@@ -73,8 +73,8 @@ def final_score(score):
         for i in range(len(score)):
             if(score[i]==maxi):
                 winners.append(i+1)
-        print("Pemenangnya adalah player {}".format(winners))
-        result = "Pemenangnya adalah player {}".format(winners)
+        print(" Pemenangnya adalah player {}".format(winners))
+        result = " Pemenangnya adalah player {}".format(winners)
         
         res = "" + result
     
