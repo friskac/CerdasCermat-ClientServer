@@ -6,16 +6,16 @@ import time
 import select
 
 #LIST OF QUESTIONS AND ANSWERS
-question2 = ["Apakah nama sungai terpanjang di dunia?",
-            "Negara manakah yang memiliki wilayah terluas di dunia?",
-            "Berasal dari manakah bunga Tulip?",
-            "Dimanakah kantor PBB?",
-            "Bahasa yang digunakan di Uruguay?"]
-answer2 = [["Nil","Amazon","Yangtze","Kongo"],
-        ["Rusia","China","South America","Europe"],
-        ["Turkey","Netherlands","South America","German"],
-        ["New York","UK","USA","Japan"],
-        ["Spanish","English","French","Arabic"]]
+question2 = ["What is the capital of France?",
+            "In which continent is Argentina?",
+            "Where is Big Ben?",
+            "What is the most densely populated country?",
+            "What language do they speak in Brazil?"]
+answer2 = [["Paris","London","Berlin","Madrid"],
+        ["South America","Africa","Europe","Asia"],
+        ["London","New York","Mexico","Jakarta"],
+        ["China","India","USA","Indonesia"],
+        ["Portuguese","Spanish","French","English"]]
 question_done=[0]*(len(question2))
 
 res = "no winner"
@@ -84,10 +84,9 @@ def final_score(score):
 def result_client():
     #print("hasil dari tdi " + res)
     return res
-     
 host = '127.0.0.1'
 
-port = 65531
+port = 65533
 
 #list for all the players
 players = []
@@ -151,16 +150,14 @@ for k in range(nb):
         except:
             pass
 
+    
 final_score(score)
 
 for i in range(len(players)):
     try:
-
-        pesan = 'Cerdas Cermat telah selesai   ' + result_client()
+        pesan = "Cerdas Cermat telah selesai!" + result_client()
         socket.sendto(pesan.encode(), players[i])
-
     except:
         pass
-
 
 socket.close()
