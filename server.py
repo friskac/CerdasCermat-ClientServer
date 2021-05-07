@@ -6,16 +6,16 @@ import time
 import select
 
 #LIST OF QUESTIONS AND ANSWERS
-question2 = ["Apakah nama sungai terpanjang di dunia?",
-            "Negara manakah yang memiliki wilayah terluas di dunia?",
-            "Berasal dari manakah bunga Tulip?",
-            "Dimanakah kantor PBB?",
-            "Bahasa yang digunakan di Uruguay?"]
-answer2 = [["Nil","Amazon","Yangtze","Kongo"],
-        ["Rusia","China","South America","Europe"],
-        ["Turkey","Netherlands","South America","German"],
-        ["New York","UK","USA","Japan"],
-        ["Spanish","English","French","Arabic"]]
+question2 = ["What is the capital of France?",
+            "In which continent is Argentina?",
+            "Where is Big Ben?",
+            "What is the most densely populated country?",
+            "What language do they speak in Brazil?"]
+answer2 = [["Paris","London","Berlin","Madrid"],
+        ["South America","Africa","Europe","Asia"],
+        ["London","New York","Mexico","Jakarta"],
+        ["China","India","USA","Indonesia"],
+        ["Portuguese","Spanish","French","English"]]
 question_done=[0]*(len(question2))
 
 #SHOW THE POSSIBLE ANSWERS
