@@ -1,3 +1,4 @@
+#Friska Christiana 2017730030, Richard Morris Yonggi 2017730047
 import numpy as np
 from numpy.random import shuffle
 from random import randint

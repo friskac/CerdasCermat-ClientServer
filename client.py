@@ -1,3 +1,4 @@
+#Friska Christiana 2017730030, Richard Morris Yonggi 2017730047
 import socket
 import threading
 import time
