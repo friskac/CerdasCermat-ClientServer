@@ -2,8 +2,8 @@ import socket
 import threading
 import time
 
-tEv = threading.Event()
-tShutdown = threading.Event()
+threadEvent = threading.Event()
+threadShutdown = threading.Event()
 
 def receving(name, sock):
     print("masuk")
@@ -13,10 +13,10 @@ def receving(name, sock):
             data = sock.recvfrom(1024)
             print(str(data))
             if '?' in str(data):
-                tEv.set()
+                threadEvent.set()
             if "Cerdas Cermat telah selesai!" in str(data):  # message from server to stop
                 shutdown = True
-                tShutdown.set()
+                threadShutdown.set()
         except:
             pass
         finally:
@@ -25,32 +25,32 @@ def receving(name, sock):
 #host = '192.168.26.86'
 host = '127.0.0.1'
 port = 0 #pick any free port currently on the computer
-server = (host, 65534)
+server = (host, 65531)
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind((host,port))
-s.setblocking(0)
+socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+socket.bind((host,port))
+socket.setblocking(0)
 
 # Start listener
-rT = threading.Thread(target=receving, args=("RecvThread", s))
-rT.start()
+readThread = threading.Thread(target=receving, args=("RecvThread", socket))
+readThread.start()
 
 # Join the game
 alias = input("Nama Anda: ")
-s.sendto(alias.encode(), server)
+socket.sendto(alias.encode(), server)
 
 time = 15
 first = True
-while not tShutdown.is_set():
+while not threadShutdown.is_set():
     if(first and time >= 0):
         print(time)
-    if tEv.wait(1.0):
+    if threadEvent.wait(1.0):
         first = False
-        tEv.clear()
+        threadEvent.clear()
         message = input(alias + ", apa jawabannya ?  -> ")
         if message != '':
-            s.sendto(message.encode(), server)
+            socket.sendto(message.encode(), server)
     time -= 1
 
-rT.join()
-s.close()
+readThread.join()
+socket.close()
